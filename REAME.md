@@ -1,0 +1,3 @@
+WELCOME TO SALSA PROJECT
+---
+Members: Chloé BUTTIGIEG, Marius THORRE, Warren AHAMADA
