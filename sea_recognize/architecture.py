@@ -26,7 +26,7 @@ other to be defined
 input = an image (jpg, png, gif)
 output = a new representation of the image
 """   
-#THORRE Marius 
+
 def raw_image_to_representation(image, representation):
     if representation == "HC":
         opened_image = plt.imread(image)
@@ -59,7 +59,7 @@ directory have been transformed and labelled according to the directory they are
 stored in.
 -- uses function raw_image_to_representation
 """
-#BUTTIGIEG Chloé
+
 def get_label(category):
     if (category == "Mer"):
         return 1
@@ -70,6 +70,7 @@ def load_transform_label_train_data(directory, representation):
     data = {"representations":[], "labels":[], "filenames":[]}
     for folder in os.listdir(directory):
         for filename in os.listdir(os.path.join(directory, folder)):
+            print(os.path.join(directory, folder, filename))
             data["representations"].append(raw_image_to_representation(os.path.join(directory, folder, filename), representation))
             data["labels"].append(get_label(folder))
             data["filenames"].append(filename)
@@ -89,7 +90,7 @@ output = a structure (dictionnary ? Matrix ? File ?) where the images of the
 directory have been transformed (but not labelled)
 -- uses function raw_image_to_representation
 """
-#BUTTIGIEG Chloé
+
 def load_transform_test_data(directory, representation):
     data = {"representations":[], "labels":[], "filenames":[]}
     for folder in os.listdir(directory):
@@ -106,7 +107,7 @@ the model
 input = transformed labelled data, the used learning algo and its hyper-parameters (a dico ?)
 output =  a model fit with data
 """
-#AHAMADA Warren
+
 def learn_model_from_data(train_data, algo_dico):
     data = train_data["representations"]
     target = train_data["labels"]
@@ -123,7 +124,7 @@ input = representation of one data, the learned model
 output = the label of that one data (+1 or -1)
 -- uses the model learned by function learn_model_from_data
 """
-#AHAMADA Warren
+
 def predict_example_label(example, model):
     label = model.predict([example])[0]
     return label
@@ -137,7 +138,7 @@ the model
 input = a structure (dico, matrix, ...) embedding all transformed data to a representation, and a model
 output =  a structure that associates a label to each data (image) of the input sample
 """
-#BUTTIGIEG Chloé
+
 def predict_sample_label(data, model):
     predictions = model.predict(data)
     return predictions
@@ -152,7 +153,7 @@ input = where to save the predictions, structure embedding the data, the model u
 for predictions
 output =  OK if the file has been saved, not OK if not
 """
-#BUTTIGIEG Chloé
+
 def write_predictions(directory, filename, data, model):
     try:
         file = open(os.path.join(directory, filename), 'x')
@@ -173,7 +174,7 @@ the number of split to be used either in a hold-out or by cross-validation
 output =  The score of success (betwwen 0 and 1, the higher the better, scores under 0.5
 are worst than random
 """
-#BUTTIGIEG Chloé
+
 def estimate_model_score(train_data, algo_dico, k):
     X_train, X_test, y_train, y_test = train_test_split(train_data["representations"], train_data["labels"], test_size=k)
     model = learn_model_from_data({"representations":X_train, "labels":y_train}, algo_dico)
